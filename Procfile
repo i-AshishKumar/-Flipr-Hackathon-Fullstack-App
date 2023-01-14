@@ -1,1 +1,1 @@
-web: gunicorn Flipr_hackathon.wsgi --log-file -
+web: gunicorn --log-file - Flipr_hackathon.wsgi 
