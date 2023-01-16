@@ -8,3 +8,4 @@ whitenoise==6.3.0
 pandas
 matplotlib
 requests
+django-cors-headers
