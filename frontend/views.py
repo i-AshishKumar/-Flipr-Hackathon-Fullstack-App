@@ -16,18 +16,31 @@ def home(request):
 def register(request):
     return render(request,'register.html')
 
+def notRegistered(request):
+    return render(request,'notregistered.html')
+
 def login(request):
     return render(request,'login.html')
 
+
 def nsebse(request):
-    endpoint1 = rq.get('http://localhost:8000/api/bse/').json()
-    endpoint2 = rq.get('http://localhost:8000/api/nse/').json()
-    bseData = helper(endpoint1)
-    nseData = helper(endpoint2)
-    return render(request,'nsebse.html',{'bseData':bseData,'nseData':nseData})
+    if request.user.is_authenticated:
+        endpoint1 = rq.get('http://localhost:8000/api/bse/').json()
+        endpoint2 = rq.get('http://localhost:8000/api/nse/').json()
+        bseData = helper(endpoint1)
+        nseData = helper(endpoint2)
+        return render(request,'nsebse.html',{'bseData':bseData,'nseData':nseData})
+    else:
+        return render(request,'notauth.html')
 
 def companies(request):
-    return render(request,'companies.html')
+    if request.user.is_authenticated:
+        
+        return render(request,'companies.html')
+    else:
+        return render(request,'notauth.html')
+
+
 
 
 

@@ -1,39 +1,8 @@
-{% if user.is_authenticated %}
+{% extends "base.html" %}
+{% block title %} Home {% endblock %}
 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stock data</title>
-</head>
-<body>
 
-        <form action="/api/logout/" method="post">
-            {%csrf_token%}
-            <button type="submit">Logout</button>
-            
-        </form>
-        {{data}}
+{% block content %}
 
-</body>
-</html>
-{% else %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" referrerpolicy="no-referrer" />
-    
 
-    <title>Home</title>
-</head>
-<body>
-    <button class="bg-sky-500 hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"><a href="{% url 'register' %}">Sign Up</a></button>
-    <button class="bg-sky-500 hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"><a href="{% url 'login' %}">Log in</a></button>
-    {{data}}
-</body>
-</html>
-{% endif %}
+{% endblock %}

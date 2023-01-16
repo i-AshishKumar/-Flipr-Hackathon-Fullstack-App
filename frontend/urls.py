@@ -7,4 +7,5 @@ urlpatterns = [
     path('login/',login,name="login"),
     path('nsebse/',nsebse,name='nsebse'),
     path('companies/',companies,name='companies'),
+    path('notregistered/',notRegistered,name='notregistered'),
 ]

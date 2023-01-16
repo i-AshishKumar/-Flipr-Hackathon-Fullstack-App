@@ -1,12 +1,12 @@
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import login, logout
 from django.shortcuts import redirect
+from django.core.exceptions import ValidationError
 from knox.models import AuthToken
 from knox.views import LoginView as KnoxLoginView
 from rest_framework import generics, permissions
-from rest_framework.authtoken.serializers import AuthTokenSerializer
-from rest_framework.response import Response
-
 from rest_framework.authentication import TokenAuthentication
+from rest_framework.authtoken.serializers import AuthTokenSerializer
+
 from .serializers import RegisterSerializer, UserSerializer
 
 
@@ -24,7 +24,9 @@ class RegisterAPI(generics.GenericAPIView):
         # "user": UserSerializer(user, context=self.get_serializer_context()).data,
         # "token": x
         # })
-        return redirect('/login/')
+        AuthToken.objects.create(user)[1]
+        login(request, user)
+        return redirect('/')
 
 # Login API
 class LoginAPI(KnoxLoginView):
@@ -32,7 +34,8 @@ class LoginAPI(KnoxLoginView):
     authentication_classes = (TokenAuthentication,)
     def post(self, request, format=None):
         serializer = AuthTokenSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
+        if serializer.is_valid(raise_exception=False) == False:
+            return redirect('/notregistered')
         user = serializer.validated_data['user']
         login(request, user)
         AuthToken.objects.create(user)[1]
