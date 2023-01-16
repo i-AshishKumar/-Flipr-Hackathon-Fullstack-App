@@ -7,3 +7,4 @@ Jinja2==3.0.3
 whitenoise==6.3.0
 pandas
 matplotlib
+requests
