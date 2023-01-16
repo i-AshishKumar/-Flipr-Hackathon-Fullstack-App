@@ -1,0 +1,267 @@
+{% extends "base.html" %}
+{% load extractor %}
+
+{% block title %}NSE and BSE{% endblock %}
+
+
+{% block content %}
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            // hide and show
+            $("#one").click( function(){
+                $("#one").addClass("active")
+                $("#two").removeClass("active")
+                $("#nse").fadeIn();
+                $("#bse").fadeOut()
+                }
+            );
+            $('#two').click(function(){
+                $("#two").addClass("active")
+                $("#one").removeClass("active")
+                $("#bse").fadeIn();
+                $("#nse").fadeOut();
+            }
+            );
+            let x = "{{ nseData|get_item:'today_gain_or_loss' }}";
+            // text color change
+            if (x>0){
+                $("#lossgain1").addClass('text-success')
+            }
+            else{
+                $("#lossgain1").addClass('text-danger')
+            }
+
+            let y = "{{ bseData|get_item:'today_gain_or_loss' }}";
+            // text color change
+            if (x>0){
+                $("#lossgain2").addClass('text-success')
+            }
+            else{
+                $("#lossgain2").addClass('text-danger')
+            }
+
+        }); 
+
+    </script>
+
+    <div class="container">
+        <!-- <h1>NSE and BSE</h1> -->
+        <div class="btn-group pt-3" role="group">
+            <button type="button" id="one" class="btn btn-primary">NSE</button>
+            <button type="button" id="two" class="btn btn-primary">BSE</button>
+        </div>
+
+        <div class="row" id="nse" style="display: none;">
+            <div class="col" >
+                <h2>NIFTY</h2> <br>
+
+                <h1 class="fw-bold">{{ nseData|get_item:'today_close' }}</h1>
+                <!-- if loss red else green -->
+    
+                <h3 id ="lossgain1" class="fw-bold">{{ nseData|get_item:'today_gain_or_loss' }}</h3>
+    
+                <h4> As on 12th Jan,2023 13:25 IST</h4>
+
+
+            </div>
+
+            <div class="col">
+
+              <canvas id="myChart" width="500" height="200"></canvas>
+
+                <script>
+                var xValues = [];
+                for (var i = 0; i <= 600; i++) {
+                    xValues.push(i);
+                }
+                var yValues = "{{nseData|get_item:'yAxis'}}";
+
+                new Chart("myChart", {
+                type: "line",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                    fill: true,
+                    lineTension: 0,
+                    backgroundColor: "rgba(0,0,255,1.0)",
+                    borderColor: "rgb(11,156,49,0.8)",
+                    data: yValues
+                    }]
+                },
+                options: {
+                    elements: {
+                        point:{
+                            radius: 0
+                        }
+                },
+                    legend: {display: false},
+                    scales: {
+
+
+                        xAxes: [{
+                            categoryPercentage: 0.8,
+                            barPercentage: 0.9,
+                            ticks:{
+                                min:0,
+                                max:600,
+                                stepSize:10,
+                                display: false
+                            },
+                            gridLines: {
+                                color: "rgba(0, 0, 0, 0)",
+                            }
+                        }],
+                    yAxes: [{
+                        ticks: {
+                            display: false
+
+                        },
+                        gridLines: {
+                            color: "rgba(0, 0, 0, 0)",
+                        }
+                    
+                    }],
+                    
+                    }
+                }
+                });
+                </script>
+
+
+            </div>
+            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                <button type="button" class="btn btn-outline-primary active">Overview</button>
+                <button type="button" class="btn btn-outline-primary">Charts</button>
+                <button type="button" class="btn btn-outline-primary">Technicals</button>
+                <button type="button" class="btn btn-outline-primary">News</button>
+                <button type="button" class="btn btn-outline-primary">Contibutions</button>
+                <button type="button" class="btn btn-outline-primary">Components</button>
+                <button type="button" class="btn btn-outline-primary">Forum</button>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Open <div class="text-end"><b>{{nseData|get_item:'today_open' }}</b></div></li>
+                        <li class="list-group-item">Previous Close <div class="text-end"><b>{{nseData|get_item:'prev_close' }}</b></div></li>
+                        <li class="list-group-item">Day High <div class="text-end"><b>{{nseData|get_item:'day_high' }}</b></div></li>
+                      </ul>
+                </div>
+                <div class="col">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Day Low <div class="text-end"><b>{{nseData|get_item:'day_low' }}</b></div></li>
+                        <li class="list-group-item">52 Week High <div class="text-end"><b>{{nseData|get_item:'fifty_two_week_high' }}</b></div></li>
+                        <li class="list-group-item">52 Week Low <div class="text-end"> <b>{{nseData|get_item:'fifty_two_week_low' }}</b></div></li>
+                      </ul>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="row" id="bse" style="display: none;">
+            <div class="col" >
+                <h2>SENSEX</h2> <br>
+
+                <h1 class="fw-bold">{{ bseData|get_item:'today_close' }}</h1>
+                <!-- if loss red else green -->
+    
+                <h3 id ="lossgain2" class="fw-bold">{{ bseData|get_item:'today_gain_or_loss' }}</h3>
+    
+                <h4> As on 12th Jan,2023 13:25 IST</h4>
+
+            </div>
+
+            <div class="col">
+
+              <canvas id="myChart2" width="500" height="200"></canvas>
+
+              <script>
+              var xValues = [];
+              for (var i = 0; i <= 600; i++) {
+                  xValues.push(i);
+              }
+              var yValues = "{{bseData|get_item:'yAxis'}}";
+
+              new Chart("myChart2", {
+              type: "line",
+              data: {
+                  labels: xValues,
+                  datasets: [{
+                  fill: true,
+                  lineTension: 0,
+                  backgroundColor: "rgb(11,156,49,0.8)",
+                  borderColor: "rgb(11,156,49,0.8)",
+                  data: yValues
+                  }]
+              },
+              options: {
+                elements: {
+                        point:{
+                            radius: 0
+                        }
+                },
+                  legend: {display: false},
+                  scales: {
+
+
+                      xAxes: [{
+                          categoryPercentage: 0.8,
+                          barPercentage: 0.9,
+                          ticks:{
+                              min:0,
+                              max:600,
+                              stepSize:10,
+                              display: false
+                          },
+                          gridLines: {
+                              color: "rgba(0, 0, 0, 0)",
+                          }
+                      }],
+                  yAxes: [{
+                      ticks: {
+                          display: false
+
+                      },
+                      gridLines: {
+                          color: "rgba(0, 0, 0, 0)",
+                      }
+                  
+                  }],
+                  
+                  }
+              }
+              });
+              </script>
+
+            </div>
+            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                <button type="button" class="btn btn-outline-primary active">Overview</button>
+                <button type="button" class="btn btn-outline-primary">Charts</button>
+                <button type="button" class="btn btn-outline-primary">Technicals</button>
+                <button type="button" class="btn btn-outline-primary">News</button>
+                <button type="button" class="btn btn-outline-primary">Contibutions</button>
+                <button type="button" class="btn btn-outline-primary">Components</button>
+                <button type="button" class="btn btn-outline-primary">Forum</button>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item mb-0">Open <div class="text-end"><b>{{bseData|get_item:'today_open' }}</b></div></li>
+                        <li class="list-group-item">Previous Close <div class="text-end"><b>{{bseData|get_item:'prev_close' }}</b></div></li>
+                        <li class="list-group-item">Day High <div class="text-end"><b>{{bseData|get_item:'day_high' }}</b></div></li>
+                      </ul>
+                </div>
+                <div class="col">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Day Low <div class="text-end"><b>{{bseData|get_item:'day_low' }}</b></div></li>
+                        <li class="list-group-item">52 Week High <div class="text-end"><b>{{bseData|get_item:'fifty_two_week_high' }}</b></div></li>
+                        <li class="list-group-item">52 Week Low <div class="text-end"> <b>{{bseData|get_item:'fifty_two_week_low' }}</b></div></li>
+                      </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

@@ -1,11 +1,6 @@
 from rest_framework import serializers
 from .models import *
 
-# class TemplateSerializer(serializers.ModelSerializer):
-#     model = ""
-#     fields = '__all__'
-#     pass
-
 class BSEserializer(serializers.ModelSerializer):
     class Meta:
         model = BSE
