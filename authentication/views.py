@@ -38,7 +38,7 @@ class LoginAPI(KnoxLoginView):
         login(request, user)
         AuthToken.objects.create(user)[1]
         # return super(LoginAPI, self).post(request, format=None)
-        return redirect('/stockdata')
+        return redirect('/')
 
 class LogoutView(generics.GenericAPIView):
     serializer_class = UserSerializer
