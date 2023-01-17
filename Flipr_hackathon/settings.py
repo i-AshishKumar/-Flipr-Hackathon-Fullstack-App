@@ -60,6 +60,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    "django_cprofile_middleware.middleware.ProfilerMiddleware",
 ]
 
 ROOT_URLCONF = 'Flipr_hackathon.urls'
@@ -156,3 +157,6 @@ REST_FRAMEWORK = {
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 CSRF_TRUSTED_ORIGINS = ['https://example.com','https://stockindex.up.railway.app']
+
+
+DJANGO_CPROFILE_MIDDLEWARE_REQUIRE_STAFF = False

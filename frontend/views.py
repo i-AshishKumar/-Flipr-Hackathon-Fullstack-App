@@ -90,11 +90,9 @@ def helperForCompanies(data):
 
 
 def helperForBSENSE(data):
-    df = pd.DataFrame(columns = ['id','date','open','high','low','close','adj_close','volume'])
-    for i in range(len(data)):
-        item = data[i]
-        df.loc[i] = [item['id'],item['date'],item['open'],item['high'],item['low'],item['close'],item['adj_close'],item['volume']]
-        df['date']= pd.to_datetime(df['date'])
+    df = pd.json_normalize(data)
+    df = df.drop(['id'], axis=1)
+    df['date']= pd.to_datetime(df['date'])
     today, req_day = datetime(2023,1,12), datetime(2022,1,12)
 
     one_year_df = df[(df['date'] <= today) & (df['date'] > req_day)]
