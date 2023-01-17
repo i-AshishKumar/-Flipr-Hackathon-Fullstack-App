@@ -25,8 +25,8 @@ def profile(request):
 
 def nsebse(request):
     if request.user.is_authenticated:
-        endpoint1 = rq.get('http://localhost:8000/api/bse/').json()
-        endpoint2 = rq.get('http://localhost:8000/api/nse/').json()
+        endpoint1 = rq.get('https://stockindex.up.railway.app/api/bse/').json()
+        endpoint2 = rq.get('https://stockindex.up.railway.app/api/nse/').json()
         bseData = helperForBSENSE(endpoint1)
         nseData = helperForBSENSE(endpoint2)
         return render(request,'nsebse.html',{'bseData':bseData,'nseData':nseData})
@@ -35,11 +35,11 @@ def nsebse(request):
 
 def companies(request):
     if request.user.is_authenticated:
-        ashok = rq.get('http://localhost:8000/api/ashok/').json()
-        cipla = rq.get('http://localhost:8000/api/cipla/').json()
-        eicher = rq.get('http://localhost:8000/api/nse/').json()
-        reliance = rq.get('http://localhost:8000/api/bse/').json()
-        tata = rq.get('http://localhost:8000/api/nse/').json()
+        ashok = rq.get('https://stockindex.up.railway.app/api/ashok/').json()
+        cipla = rq.get('https://stockindex.up.railway.app/api/cipla/').json()
+        eicher = rq.get('https://stockindex.up.railway.app/api/nse/').json()
+        reliance = rq.get('https://stockindex.up.railway.app/api/bse/').json()
+        tata = rq.get('https://stockindex.up.railway.app/api/nse/').json()
 
  
         ashok_oneyr_high_values,ashok_oneyr_dates = helperForCompanies(ashok)
