@@ -3,9 +3,6 @@ from json import dumps
 import pandas as pd
 import requests as rq
 from django.shortcuts import render
-import matplotlib.pyplot as plt
-import io
-import urllib, base64
 
 
 # Create your views here.
