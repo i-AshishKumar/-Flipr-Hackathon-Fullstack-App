@@ -25,8 +25,8 @@ def profile(request):
 
 def nsebse(request):
     if request.user.is_authenticated:
-        endpoint1 = rq.get('https://stockindex.up.railway.app/api/bse/').json()
-        endpoint2 = rq.get('https://stockindex.up.railway.app/api/nse/').json()
+        endpoint1 = rq.get('http://localhost:8000/api/bse/').json()
+        endpoint2 = rq.get('http://localhost:8000/api/nse/').json()
         bseData = helperForBSENSE(endpoint1)
         nseData = helperForBSENSE(endpoint2)
         return render(request,'nsebse.html',{'bseData':bseData,'nseData':nseData})
@@ -35,11 +35,11 @@ def nsebse(request):
 
 def companies(request):
     if request.user.is_authenticated:
-        ashok = rq.get('https://stockindex.up.railway.app/api/ashok/').json()
-        cipla = rq.get('https://stockindex.up.railway.app/api/cipla/').json()
-        eicher = rq.get('https://stockindex.up.railway.app/api/nse/').json()
-        reliance = rq.get('https://stockindex.up.railway.app/api/bse/').json()
-        tata = rq.get('https://stockindex.up.railway.app/api/nse/').json()
+        ashok = rq.get('http://localhost:8000/api/ashok/').json()
+        cipla = rq.get('http://localhost:8000/api/cipla/').json()
+        eicher = rq.get('http://localhost:8000/api/nse/').json()
+        reliance = rq.get('http://localhost:8000/api/bse/').json()
+        tata = rq.get('http://localhost:8000/api/nse/').json()
 
  
         ashok_oneyr_high_values,ashok_oneyr_dates = helperForCompanies(ashok)
@@ -71,21 +71,19 @@ def companies(request):
 
 def helperForCompanies(data):
 
-        df = pd.DataFrame(columns = ['date','open','high','low','close','adj_close','volume'])
-        for i in range(len(data)):
-            item = data[i]
-            df.loc[i] = [item['date'],item['open'],item['high'],item['low'],item['close'],item['adj_close'],item['volume']]
-        df['date'] = pd.to_datetime(df['date'])
-        df['year'] = df['date'].dt.year
+    df = pd.json_normalize(data)
+    df = df.drop(['id'], axis=1)
+    df['date'] = pd.to_datetime(df['date'])
+    df['year'] = df['date'].dt.year
 
         
-        today, req_day = datetime(2023,1,12), datetime(2022,1,12)
-        one_year_df = df[(df['date'] <= today) & (df['date'] > req_day)]
+    today, req_day = datetime(2023,1,12), datetime(2022,1,12)
+    one_year_df = df[(df['date'] <= today) & (df['date'] > req_day)]
 
-        oneyr_high_values = dumps(list(one_year_df['high']))
-        oneyr_dates = dumps(list(df['date'].astype(str)))
+    oneyr_high_values = dumps(list(one_year_df['high']))
+    oneyr_dates = dumps(list(df['date'].astype(str)))
 
-        return oneyr_high_values,oneyr_dates
+    return oneyr_high_values,oneyr_dates
 
 
 

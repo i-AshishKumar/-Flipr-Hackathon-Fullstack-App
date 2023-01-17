@@ -8,3 +8,4 @@ whitenoise==6.3.0
 pandas
 requests
 django-cors-headers
+django_cprofile_middleware
