@@ -2,7 +2,7 @@
 
 ## Installation
 
-Clone this repository (Make sure you have 'git' installed)
+Clone this repository (Make sure you have 'git' and python installed)
 
 ```bash
 git clone https://github.com/i-AshishKumar/Flipr-Hackathon-Fullstack-App.git
