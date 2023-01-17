@@ -19,3 +19,6 @@ Run the application on the local server
 ```bash
 python manage.py runserver
 ```
+
+
+## NOTE: Please wait for a minute after clicking on 'NSE/BSE' tab or 'Companies' tab as the data is processed by extracting it from the API 
