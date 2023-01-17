@@ -1,6 +1,6 @@
 # Flipr Hackathon Fullstack Web Application
 
-## Installation
+## Installation & Running
 
 Clone this repository (Make sure you have 'git' installed)
 
