@@ -1,6 +1,6 @@
 # Flipr Hackathon Fullstack Web Application
 
-## Installation & Running
+## Installation
 
 Clone this repository (Make sure you have 'git' installed)
 
@@ -21,4 +21,29 @@ python manage.py runserver
 ```
 
 
-## NOTE: Please wait for a minute after clicking on 'NSE/BSE' tab or 'Companies' tab as the data is processed by extracting it from the API 
+## Usage
+
+* A user should be authenticated (logged in) to access the NSE/BSE or Companies tab, else the data won't be displayed.
+* Click on Sign Up to register for a new account, after signup user will be redirected to home page where the user can access the NSE/BSE and Companies tabs on the navigation bar 
+* In NSE/BSE page, there is a button group with NSE and BSE buttons click on either of them to see the data and their respective chart
+* In Companies tab there will be a dropdown menu with 5 companies upon choosing one their respective data and chart will be displayed.
+* After accessing the data, the user can log out using the logout button in the top right corner of the nav bar.
+
+All API endpoints can be accessed through the list below:
+
+>[https://stockindex.up.railway.app/api/bse/](https://stockindex.up.railway.app/api/bse/)
+
+>[https://stockindex.up.railway.app/api/nse/](https://stockindex.up.railway.app/api/nse/)
+
+>[https://stockindex.up.railway.app/api/ashok/](https://stockindex.up.railway.app/api/ashok/)
+
+>[https://stockindex.up.railway.app/api/cipla/](https://stockindex.up.railway.app/api/cipla/)
+
+>[https://stockindex.up.railway.app/api/eicher/](https://stockindex.up.railway.app/api/eicher/)
+
+>[https://stockindex.up.railway.app/api/reliance/](https://stockindex.up.railway.app/api/reliance/)
+
+>[https://stockindex.up.railway.app/api/tata/](https://stockindex.up.railway.app/api/tata/)
+
+## NOTE: 
+Please wait for a minute after clicking on 'NSE/BSE' tab or 'Companies' tab as the data is processed by extracting it from the API.
