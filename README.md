@@ -45,5 +45,7 @@ All API endpoints can be accessed through the list below:
 
 >[https://stockindex.up.railway.app/api/tata/](https://stockindex.up.railway.app/api/tata/)
 
+If you want to access these endpoints locally, just replace https://stockindex.up.railway.app with **localhost or 127.0.0.1:8000**
+
 ## NOTE: 
 Please wait for a minute after clicking on 'NSE/BSE' tab or 'Companies' tab as the data is processed by extracting it from the API.
