@@ -9,3 +9,5 @@ pandas
 requests
 django-cors-headers
 django_cprofile_middleware
+aiohttp
+asyncio

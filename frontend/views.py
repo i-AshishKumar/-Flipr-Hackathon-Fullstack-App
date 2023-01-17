@@ -4,6 +4,9 @@ import pandas as pd
 import requests as rq
 from django.shortcuts import render
 
+import asyncio
+import aiohttp
+
 
 # Create your views here.
 
@@ -68,7 +71,6 @@ def companies(request):
 
 
 
-
 def helperForCompanies(data):
 
     df = pd.json_normalize(data)
@@ -93,32 +95,30 @@ def helperForBSENSE(data):
     df['date']= pd.to_datetime(df['date'])
     today, req_day = datetime(2023,1,12), datetime(2022,1,12)
 
-    one_year_df = df[(df['date'] <= today) & (df['date'] > req_day)]
-    fifty_two_week_high = max(one_year_df['high'])
-    fifty_two_week_low = min(one_year_df['low'])
+    one_year_df = df.query('date <= @today and date > @req_day')
+    fifty_two_week_high = one_year_df['high'].max()
+    fifty_two_week_low = one_year_df['low'].min()
 
-    day_high = df[df['date']==today]['high']
-    day_low = df[df['date']==today]['low']
+    day_high = df.query('date == @today')['high'].values[0]
+    day_low = df.query('date == @today')['low'].values[0]
 
     previous_day = today - pd.Timedelta(days=1)
-    today_close = float(df[df['date']==today]['close'])
-    prev_close = float(df[df['date']==previous_day]['close'])
+    today_close = df.query('date == @today')['close'].values[0]
+    prev_close = df.query('date == @previous_day')['close'].values[0]
 
-    today_open = float(df[df['date']==today]['open'])
-    today_gain_or_loss = float(today_close - prev_close)
+    today_open = df.query('date == @today')['open'].values[0]
+    today_gain_or_loss = today_close - prev_close
 
     data = {
             'today_open':today_open,
             'today_close':today_close,
             'prev_close': prev_close,
             'today_gain_or_loss' : today_gain_or_loss,
-            'day_high':float(day_high),
-            'day_low':float(day_low),
+            'day_high':day_high,
+            'day_low':day_low,
             'fifty_two_week_high':fifty_two_week_high,
             'fifty_two_week_low':fifty_two_week_low,
             'xAxis':list(df['date']),
             'yAxis':list(df['close']),
             }
     return data
-
-
