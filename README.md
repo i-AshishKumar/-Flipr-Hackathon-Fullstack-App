@@ -29,7 +29,7 @@ python manage.py runserver
 * In Companies tab there will be a dropdown menu with 5 companies upon choosing one their respective data and chart will be displayed.
 * After accessing the data, the user can log out using the logout button in the top right corner of the nav bar.
 
-All API endpoints can be accessed through the list below:
+All Data Access API endpoints can be accessed through the list below:
 
 >[https://stockindex.up.railway.app/api/bse/](https://stockindex.up.railway.app/api/bse/)
 
@@ -44,6 +44,12 @@ All API endpoints can be accessed through the list below:
 >[https://stockindex.up.railway.app/api/reliance/](https://stockindex.up.railway.app/api/reliance/)
 
 >[https://stockindex.up.railway.app/api/tata/](https://stockindex.up.railway.app/api/tata/)
+
+Register and Login API endpoints can be accessed through the list below:
+>[https://stockindex.up.railway.app/api/register/](https://stockindex.up.railway.app/api/register/)
+
+> [https://stockindex.up.railway.app/api/login/](https://stockindex.up.railway.app/api/login/)
+
 
 If you want to access these endpoints locally, just replace https://stockindex.up.railway.app with **localhost or 127.0.0.1:8000**
 
